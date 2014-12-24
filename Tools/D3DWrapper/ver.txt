@@ -1,0 +1,14 @@
+
+09.08.2010  version 2.2  (StarCraft2)
+  d3d9, d3d8 exports added
+  
+11.08.2010
+  IDirect3DSwapChain9 log added (StarCraft2)
+
+  
+13.08.2010 TEXT macro warning removed
+
+0:32 04.09.2010  Invalid Pointer Bug Fix (Since 02.2008)
+
+
+10.08.2012 Ninja Ripper version

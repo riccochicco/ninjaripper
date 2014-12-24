@@ -1,0 +1,35 @@
+EXPORTS
+	DirectDrawCreate=DirectDrawCreate_
+	DirectDrawEnumerateW=DirectDrawEnumerateW_
+	DirectDrawEnumerateA=DirectDrawEnumerateA_
+	DirectDrawEnumerateExW=DirectDrawEnumerateExW_
+	DirectDrawEnumerateExA=DirectDrawEnumerateExA_
+	Direct3DCreate9=Direct3DCreate9_
+	D3DPERF_BeginEvent=D3DPERF_BeginEvent_
+	D3DPERF_EndEvent=D3DPERF_EndEvent_
+	D3DPERF_SetMarker=D3DPERF_SetMarker_
+	D3DPERF_SetRegion=D3DPERF_SetRegion_
+	D3DPERF_QueryRepeatFrame=D3DPERF_QueryRepeatFrame_
+	D3DPERF_SetOptions=D3DPERF_SetOptions_
+	D3DPERF_GetStatus=D3DPERF_GetStatus_
+	Direct3DCreate8=Direct3DCreate8_
+	DirectDrawCreateEx=DirectDrawCreateEx_
+	ReleaseDDThreadLock=ReleaseDDThreadLock_
+	D3DParseUnknownCommand=D3DParseUnknownCommand_
+	AcquireDDThreadLock=AcquireDDThreadLock_
+	CheckFullscreen=CheckFullscreen_
+	CompleteCreateSysmemSurface=CompleteCreateSysmemSurface_
+	DDGetAttachedSurfaceLcl=DDGetAttachedSurfaceLcl_
+	DDInternalLock=DDInternalLock_
+	DDInternalUnlock=DDInternalUnlock_
+	DSoundHelp=DSoundHelp_
+	GetDDSurfaceLocal=GetDDSurfaceLocal_
+	GetOLEThunkData=GetOLEThunkData_
+	GetSurfaceFromDC=GetSurfaceFromDC_
+	RegisterSpecialCase=RegisterSpecialCase_
+	D3D11CreateDeviceAndSwapChain=D3D11CreateDeviceAndSwapChain_
+	D3D11CreateDevice=D3D11CreateDevice_
+	D3D11CoreRegisterLayers=D3D11CoreRegisterLayers_
+	D3D11CoreGetLayeredDeviceSize=D3D11CoreGetLayeredDeviceSize_
+	D3D11CoreCreateLayeredDevice=D3D11CoreCreateLayeredDevice_
+	

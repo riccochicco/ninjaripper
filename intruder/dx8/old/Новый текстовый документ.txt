@@ -1,0 +1,419 @@
+/*
+	//Crack FVF functions
+	DWORD GetTexCoordSetsCount(DWORD dwFVF);
+	DWORD GetTexCoordSetSize(DWORD dwFVF,BYTE Index);
+	DWORD GetFVFComponentOffset(DWORD dwFVF,DWORD dwFVFComponent,BYTE iTexCoordIndex);
+*/
+
+
+
+HRESULT KRipper8::FVF_to_KVertexDeclaration( 
+	IDirect3DDevice8* pDev, 
+	KD3D8VertexDeclaration& D3DVertDecl, 
+	KVertexDeclaration& RipperVertDecl,
+	UINT& VertSize )
+{
+	HRESULT hr;
+	DWORD D3D8Decl[ 64 ] = { 0 };
+
+
+	IDirect3DVertexBuffer8* pVertexBuffer = NULL;
+	UINT Stride = 0;
+	DWORD VertShader = 0;
+	D3DVERTEXBUFFER_DESC VertBufDesc;
+	DWORD FVF = 0;
+	ZeroMemory( &VertBufDesc, sizeof( VertBufDesc ) );
+
+	hr = pDev->GetVertexShader( &VertShader );
+	g_pLog->Write( L"Vertex shader(FVF): 0x%08X\n", VertShader );
+
+
+	//Get stream 0
+	hr = pDev->GetStreamSource( 0, &pVertexBuffer, &Stride );
+	if( SUCCEEDED( hr ) ){
+		hr = pVertexBuffer->GetDesc( &VertBufDesc );
+		if( SUCCEEDED( hr ) ){
+			g_pLog->Write( L"VertexBuffer FVF: 0x%08X\n", VertBufDesc.FVF );
+		}
+		pVertexBuffer->Release();
+
+
+		//Select FVF
+		if( VertShader )
+			FVF = VertShader;
+		else
+			FVF = VertBufDesc.FVF;
+
+
+		//D3DX function call
+		VertSize = D3DXGetFVFVertexSize_( FVF );
+
+
+		//Crack FVF
+		DWORD RipperVertOffs = 0;
+		CreateElementFromFVF( FVF, D3DFVF_XYZ,   0, RipperVertOffs, D3DVertDecl, RipperVertDecl );
+		CreateElementFromFVF( FVF, D3DFVF_XYZB1, 0, RipperVertOffs, D3DVertDecl, RipperVertDecl );
+		CreateElementFromFVF( FVF, D3DFVF_XYZB2, 0, RipperVertOffs, D3DVertDecl, RipperVertDecl );
+		CreateElementFromFVF( FVF, D3DFVF_XYZB3, 0, RipperVertOffs, D3DVertDecl, RipperVertDecl );
+		CreateElementFromFVF( FVF, D3DFVF_XYZB4, 0, RipperVertOffs, D3DVertDecl, RipperVertDecl );
+		CreateElementFromFVF( FVF, D3DFVF_XYZB5, 0, RipperVertOffs, D3DVertDecl, RipperVertDecl );
+		CreateElementFromFVF( FVF, D3DFVF_NORMAL, 0, RipperVertOffs, D3DVertDecl, RipperVertDecl );
+		CreateElementFromFVF( FVF, D3DFVF_DIFFUSE, 0, RipperVertOffs, D3DVertDecl, RipperVertDecl );
+		CreateElementFromFVF( FVF, D3DFVF_PSIZE, 0, RipperVertOffs, D3DVertDecl, RipperVertDecl );
+		CreateElementFromFVF( FVF, D3DFVF_SPECULAR, 0, RipperVertOffs, D3DVertDecl, RipperVertDecl );
+
+		DWORD TexCoordSetsCount = GetTexCoordSetsCount( FVF );
+		for( BYTE i = 0; i < TexCoordSetsCount; i++ ){
+			DWORD TexCoordSetSize = GetTexCoordSetSize( FVF, i );
+			if( TexCoordSetSize == 4 ){//1-D
+				CreateElementFromFVF( FVF, D3DFVF_TEXCOORDSIZE1( i ), i, RipperVertOffs, D3DVertDecl, RipperVertDecl );
+			}
+			else if( TexCoordSetSize == 8 ){//2-D
+				CreateElementFromFVF( FVF, D3DFVF_TEXCOORDSIZE2( i ), i, RipperVertOffs, D3DVertDecl, RipperVertDecl );
+			}
+			else if( TexCoordSetSize == 12 ){//3-D
+				CreateElementFromFVF( FVF, D3DFVF_TEXCOORDSIZE3( i ), i, RipperVertOffs, D3DVertDecl, RipperVertDecl );
+			}
+			else if( TexCoordSetSize == 16 ){//4-D
+				CreateElementFromFVF( FVF, D3DFVF_TEXCOORDSIZE4( i ), i, RipperVertOffs, D3DVertDecl, RipperVertDecl );
+			}
+		}
+
+	}
+	return 0;
+}
+
+
+
+DWORD KRipper8::CreateElementFromFVF( 
+	DWORD FVF,
+	DWORD ComponentFVF,
+	BYTE Index,
+	DWORD& RipperVertOffs,
+	KD3D8VertexDeclaration& D3DVertDecl, 
+	KVertexDeclaration& RipperVertDecl )
+{
+	DWORD D3DElemSize = 0;
+	DWORD D3DOffs = 0;
+
+	D3DVERTEXELEMENT8 D3DElem;
+	KVertexElement    RipperElem;
+
+	D3DOffs = GetFVFComponentOffset( FVF, ComponentFVF, Index );
+	if( D3DOffs != 0xFFFFFFFF ){//XYZ Present in vertex
+		if( ComponentFVF == D3DFVF_XYZ ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "POSITION" );
+			D3DElem.Type = KDumper::eR32G32B32_FLOAT;
+			D3DElemSize  = 3 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_NORMAL ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "NORMAL" );
+			D3DElem.Type = KDumper::eR32G32B32_FLOAT;
+			D3DElemSize  = 3 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_XYZRHW ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "POSITION" );
+			D3DElem.Type = KDumper::eR32G32B32A32_FLOAT;
+			D3DElemSize  = 4 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_XYZB1 ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "POSITION" );
+			D3DElem.Type = KDumper::eR32G32B32A32_FLOAT;
+			D3DElemSize  = 4 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_XYZB2 ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "POSITION" );
+			D3DElem.Type = KDumper::eFLOAT5;
+			D3DElemSize  = 5 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_XYZB3 ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "POSITION" );
+			D3DElem.Type = KDumper::eFLOAT6;
+			D3DElemSize  = 6 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_XYZB4 ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "POSITION" );
+			D3DElem.Type = KDumper::eFLOAT7;
+			D3DElemSize  = 7 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_XYZB5 ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "POSITION" );
+			D3DElem.Type = KDumper::eFLOAT8;
+			D3DElemSize  = 8 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_DIFFUSE ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "DIFFUSE" );
+			D3DElem.Type = KDumper::eR32_FLOAT;
+			D3DElemSize  = 1 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_PSIZE ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "PSIZE" );
+			D3DElem.Type = KDumper::eR32_FLOAT;
+			D3DElemSize  = 1 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_SPECULAR ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "SPECULAR" );
+			D3DElem.Type = KDumper::eR32_FLOAT;
+			D3DElemSize  = 1 * sizeof( float );
+		}
+		else{//Tex. coord
+			
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "TEXCOORD" );
+
+			for( BYTE j = 0; j < 8; j++ ){
+				if( ComponentFVF == D3DFVF_TEXCOORDSIZE1( j ) ){
+					D3DElem.Type = KDumper::eR32_FLOAT;
+					D3DElemSize  = 1 * sizeof( float );
+					break;
+				}
+				else if( ComponentFVF == D3DFVF_TEXCOORDSIZE2( j ) ){
+					D3DElem.Type = KDumper::eR32G32_FLOAT;
+					D3DElemSize  = 2 * sizeof( float );
+					break;
+				}
+				else if( ComponentFVF == D3DFVF_TEXCOORDSIZE3( j ) ){
+					D3DElem.Type = KDumper::eR32G32B32_FLOAT;
+					D3DElemSize  = 3 * sizeof( float );
+					break;
+				}
+				else if( ComponentFVF == D3DFVF_TEXCOORDSIZE4( j ) ){
+					D3DElem.Type = KDumper::eR32G32B32A32_FLOAT;
+					D3DElemSize  = 4 * sizeof( float );
+					break;
+				}
+			}
+		}
+
+		D3DElem.Offset = D3DOffs;
+		D3DElem.Size   = D3DElemSize;
+
+		RipperElem.Offset = RipperVertOffs;
+		RipperElem.Size   = D3DElemSize;
+		RipperVertOffs    += D3DElemSize;
+
+		D3DVertDecl.push_back( D3DElem );
+		RipperVertDecl.push_back( RipperElem );
+	}
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Return: 0 - element exist. Need add to vertex declaration
+DWORD KRipper8::CreateD3D8ElementFromFVFComponent( 
+	DWORD FVF,
+	DWORD ComponentFVF,
+	BYTE  Index,
+	DWORD& VertOffs,
+	KD3DVERTEXELEMENT8& D3DVertElem
+	)
+{
+	
+	DWORD D3DOffs = GetFVFComponentOffset( FVF, ComponentFVF, Index );
+
+	if( D3DOffs != 0xFFFFFFFF ){//Component present in vertex
+		if( ComponentFVF == D3DFVF_XYZ ){
+			::StrCopy( D3DVertElem.UsageSemantic, SEMANTIC_LEN, "POSITION" );
+			D3DElem.Type = KDumper::eR32G32B32_FLOAT;
+			D3DElemSize  = 3 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_NORMAL ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "NORMAL" );
+			D3DElem.Type = KDumper::eR32G32B32_FLOAT;
+			D3DElemSize  = 3 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_XYZRHW ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "POSITION" );
+			D3DElem.Type = KDumper::eR32G32B32A32_FLOAT;
+			D3DElemSize  = 4 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_XYZB1 ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "POSITION" );
+			D3DElem.Type = KDumper::eR32G32B32A32_FLOAT;
+			D3DElemSize  = 4 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_XYZB2 ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "POSITION" );
+			D3DElem.Type = KDumper::eFLOAT5;
+			D3DElemSize  = 5 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_XYZB3 ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "POSITION" );
+			D3DElem.Type = KDumper::eFLOAT6;
+			D3DElemSize  = 6 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_XYZB4 ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "POSITION" );
+			D3DElem.Type = KDumper::eFLOAT7;
+			D3DElemSize  = 7 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_XYZB5 ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "POSITION" );
+			D3DElem.Type = KDumper::eFLOAT8;
+			D3DElemSize  = 8 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_DIFFUSE ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "DIFFUSE" );
+			D3DElem.Type = KDumper::eR32_FLOAT;
+			D3DElemSize  = 1 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_PSIZE ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "PSIZE" );
+			D3DElem.Type = KDumper::eR32_FLOAT;
+			D3DElemSize  = 1 * sizeof( float );
+		}
+		else if( ComponentFVF == D3DFVF_SPECULAR ){
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "SPECULAR" );
+			D3DElem.Type = KDumper::eR32_FLOAT;
+			D3DElemSize  = 1 * sizeof( float );
+		}
+		else{//Tex. coord
+
+			::StrCopy( RipperElem.UsageSemantic, SEMANTIC_LEN, "TEXCOORD" );
+
+			for( BYTE j = 0; j < 8; j++ ){
+				if( ComponentFVF == D3DFVF_TEXCOORDSIZE1( j ) ){
+					D3DElem.Type = KDumper::eR32_FLOAT;
+					D3DElemSize  = 1 * sizeof( float );
+					break;
+				}
+				else if( ComponentFVF == D3DFVF_TEXCOORDSIZE2( j ) ){
+					D3DElem.Type = KDumper::eR32G32_FLOAT;
+					D3DElemSize  = 2 * sizeof( float );
+					break;
+				}
+				else if( ComponentFVF == D3DFVF_TEXCOORDSIZE3( j ) ){
+					D3DElem.Type = KDumper::eR32G32B32_FLOAT;
+					D3DElemSize  = 3 * sizeof( float );
+					break;
+				}
+				else if( ComponentFVF == D3DFVF_TEXCOORDSIZE4( j ) ){
+					D3DElem.Type = KDumper::eR32G32B32A32_FLOAT;
+					D3DElemSize  = 4 * sizeof( float );
+					break;
+				}
+			}
+		}
+
+		D3DElem.Offset = D3DOffs;
+		D3DElem.Size   = D3DElemSize;
+
+		RipperElem.Offset = RipperVertOffs;
+		RipperElem.Size   = D3DElemSize;
+		RipperVertOffs    += D3DElemSize;
+
+		D3DVertDecl.push_back( D3DElem );
+		RipperVertDecl.push_back( RipperElem );
+	}
+
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+HRESULT KRipper8::D3D8DeclFromFVF( 
+	DWORD FVF, 
+	KD3D8VertexDeclaration& D3DVertDecl, 
+	DWORD& VertSize
+	)
+{
+	if( !FVF ){
+		g_pLog->Write( L"FVF==NULL\n" );
+		return E_FVF_NULL;
+	}
+
+	//API function
+	VertSize = D3DXGetFVFVertexSize_( FVF );
+
+	D3DVERTEXELEMENT8 D3D8Elem;
+
+
+	return S_OK;
+}
+
+
+HRESULT KRipper8::GetD3D8VertexDecl( 
+	IDirect3DDevice8* pDev, 
+	KD3D8VertexDeclaration& D3DVertDecl, 
+	DWORD& VertSize )
+{
+	HRESULT hr;
+	DWORD VertShader = 0;
+	hr = pDev->GetVertexShader( &VertShader );
+	if( FAILED( hr ) ){
+		g_pLog->Write( L"IDirect3DDevice8::GetVertexShader() error: 0x%08X", hr );
+		return hr;
+	}
+
+	g_pLog->Write( L"Vertex shader(FVF): 0x%08X\n", VertShader );
+
+	::EnterCriticalSection( &cs );
+	KVertexShaderMap::iterator p = VSDb.find( VertShader );
+	::LeaveCriticalSection( &cs );
+	if( p == VSDb.end() ){//Shader with handle not found
+		//FVF set. Crack it
+		D3D8DeclFromFVF( VertShader, D3DVertDecl, VertSize );
+	}
+	else{//Vertex shader is set. Parse declaration
+
+	}
+
+	return S_OK;
+/*
+	IDirect3DVertexBuffer8* pVertexBuffer = NULL;
+	UINT Stride = 0;
+
+	D3DVERTEXBUFFER_DESC VertBufDesc;
+	DWORD FVF = 0;
+	ZeroMemory( &VertBufDesc, sizeof( VertBufDesc ) );
+
+	//Get stream 0
+	hr = pDev->GetStreamSource( 0, &pVertexBuffer, &Stride );
+	if( SUCCEEDED( hr ) ){
+		hr = pVertexBuffer->GetDesc( &VertBufDesc );
+		if( SUCCEEDED( hr ) ){
+			g_pLog->Write( L"VertexBuffer FVF: 0x%08X\n", VertBufDesc.FVF );
+		}
+		pVertexBuffer->Release();
+
+
+		//Select FVF
+		if( VertShader )
+			FVF = VertShader;
+		else
+			FVF = VertBufDesc.FVF;
+
+
+		//D3DX function call
+		VertSize = D3DXGetFVFVertexSize_( FVF );
+
+
+		//Crack FVF
+	}
+	*/
+	return 0;
+}
+
+
+
+
+

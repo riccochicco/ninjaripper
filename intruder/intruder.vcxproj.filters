@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\dx9">
+      <UniqueIdentifier>{d2982002-08ad-44ba-8d1f-454f3b815099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common">
+      <UniqueIdentifier>{b12371ef-f767-415d-bbb6-05b8239f23a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\dx8">
+      <UniqueIdentifier>{05e58b3b-00d8-4496-ab48-ec397b509527}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\dx9">
+      <UniqueIdentifier>{340128f2-de79-4a30-952b-bfaba0d6a98f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\common">
+      <UniqueIdentifier>{62be2075-9a5b-43c5-a892-56f71ccf76af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\dx8">
+      <UniqueIdentifier>{5b2b5b09-a706-43b6-9b65-4485cb5137e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\dx11">
+      <UniqueIdentifier>{7ec93354-61f8-4977-ac54-23f925fcbd5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\dx11">
+      <UniqueIdentifier>{1ff6c123-c811-4c82-8ead-597f804dad45}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="intruder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dx9\KRipper9.cpp">
+      <Filter>Source Files\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="common\KIntruder.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\klog.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\PreComp.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="dx8\KRipper8.cpp">
+      <Filter>Source Files\dx8</Filter>
+    </ClCompile>
+    <ClCompile Include="dx8\Pre8.cpp">
+      <Filter>Source Files\dx8</Filter>
+    </ClCompile>
+    <ClCompile Include="dx9\Pre9.cpp">
+      <Filter>Source Files\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="common\KHookMgr.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="dx9\Texture9.cpp">
+      <Filter>Source Files\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="dx8\Texture8.cpp">
+      <Filter>Source Files\dx8</Filter>
+    </ClCompile>
+    <ClCompile Include="common\KDumper.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="dx9\SaveMeshTextures9.cpp">
+      <Filter>Source Files\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="dx9\SaveTexture9.cpp">
+      <Filter>Source Files\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="dx9\DIP9.cpp">
+      <Filter>Source Files\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="dx9\DPUP9.cpp">
+      <Filter>Source Files\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="dx8\DIP8.cpp">
+      <Filter>Source Files\dx8</Filter>
+    </ClCompile>
+    <ClCompile Include="dx8\DP8.cpp">
+      <Filter>Source Files\dx8</Filter>
+    </ClCompile>
+    <ClCompile Include="dx8\DPUP8.cpp">
+      <Filter>Source Files\dx8</Filter>
+    </ClCompile>
+    <ClCompile Include="dx8\DIPUP8.cpp">
+      <Filter>Source Files\dx8</Filter>
+    </ClCompile>
+    <ClCompile Include="dx8\SaveMeshTextures8.cpp">
+      <Filter>Source Files\dx8</Filter>
+    </ClCompile>
+    <ClCompile Include="dx9\SaveShader9.cpp">
+      <Filter>Source Files\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\registry.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="dx11\KRipper11.cpp">
+      <Filter>Source Files\dx11</Filter>
+    </ClCompile>
+    <ClCompile Include="dx11\Pre11.cpp">
+      <Filter>Source Files\dx11</Filter>
+    </ClCompile>
+    <ClCompile Include="dx11\Texture11.cpp">
+      <Filter>Source Files\dx11</Filter>
+    </ClCompile>
+    <ClCompile Include="common\khook2.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="dx11\Dump11.cpp">
+      <Filter>Source Files\dx11</Filter>
+    </ClCompile>
+    <ClCompile Include="dx11\SaveTexture11.cpp">
+      <Filter>Source Files\dx11</Filter>
+    </ClCompile>
+    <ClCompile Include="dx11\DI11.cpp">
+      <Filter>Source Files\dx11</Filter>
+    </ClCompile>
+    <ClCompile Include="dx11\SaveMeshTextures11.cpp">
+      <Filter>Source Files\dx11</Filter>
+    </ClCompile>
+    <ClCompile Include="common\KDumper2.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="dx9\Dump9.cpp">
+      <Filter>Source Files\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="dx9\DIPUP9.cpp">
+      <Filter>Source Files\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="dx9\DP9.cpp">
+      <Filter>Source Files\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="dx11\Draw11.cpp">
+      <Filter>Source Files\dx11</Filter>
+    </ClCompile>
+    <ClCompile Include="dx11\DrawAuto11.cpp">
+      <Filter>Source Files\dx11</Filter>
+    </ClCompile>
+    <ClCompile Include="dx11\DII11.cpp">
+      <Filter>Source Files\dx11</Filter>
+    </ClCompile>
+    <ClCompile Include="dx11\DIII11.cpp">
+      <Filter>Source Files\dx11</Filter>
+    </ClCompile>
+    <ClCompile Include="dx11\DrawInstanced11.cpp">
+      <Filter>Source Files\dx11</Filter>
+    </ClCompile>
+    <ClCompile Include="dx11\DrawInstancedI11.cpp">
+      <Filter>Source Files\dx11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\injector\kinject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="common\KDumper3.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="dx8\Dump8.cpp">
+      <Filter>Source Files\dx8</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="intruder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dx9\KRipper9.h">
+      <Filter>Header Files\dx9</Filter>
+    </ClInclude>
+    <ClInclude Include="common\hde.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\KIntruder.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\klog.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\outtypes.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\PreComp.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="dx8\KRipper8.h">
+      <Filter>Header Files\dx8</Filter>
+    </ClInclude>
+    <ClInclude Include="dx8\Pre8.h">
+      <Filter>Header Files\dx8</Filter>
+    </ClInclude>
+    <ClInclude Include="dx9\Pre9.h">
+      <Filter>Header Files\dx9</Filter>
+    </ClInclude>
+    <ClInclude Include="common\KHookMgr.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\Output.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\KDumper.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\IRipper.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\registry.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="dx11\KRipper11.h">
+      <Filter>Header Files\dx11</Filter>
+    </ClInclude>
+    <ClInclude Include="dx11\Pre11.h">
+      <Filter>Header Files\dx11</Filter>
+    </ClInclude>
+    <ClInclude Include="common\khook2.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\CodeMacroses.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\CodeMacroses2.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="dx8\Types.h">
+      <Filter>Header Files\dx8</Filter>
+    </ClInclude>
+    <ClInclude Include="dx9\Types.h">
+      <Filter>Header Files\dx9</Filter>
+    </ClInclude>
+    <ClInclude Include="dx11\Types.h">
+      <Filter>Header Files\dx11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\injector\kinject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\TDXRef.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="intruder.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+</Project>

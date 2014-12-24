@@ -1,0 +1,12 @@
+LIBRARY      "intruder"
+EXPORTS
+    Direct3DCreate9=Direct3DCreate9_
+	D3DPERF_BeginEvent=D3DPERF_BeginEvent_
+	D3DPERF_EndEvent=D3DPERF_EndEvent_
+	D3DPERF_SetMarker=D3DPERF_SetMarker_
+	D3DPERF_SetRegion=D3DPERF_SetRegion_
+	D3DPERF_QueryRepeatFrame=D3DPERF_QueryRepeatFrame_
+	D3DPERF_SetOptions=D3DPERF_SetOptions_
+	D3DPERF_GetStatus=D3DPERF_GetStatus_
+	
+	

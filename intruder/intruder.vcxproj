@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{913FD9CF-63D6-4B37-8C1C-BA2DEDC0522B}</ProjectGuid>
+    <RootNamespace>intruder</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Obj\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Obj\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../Common/;./;./common/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;INTRUDER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <StructMemberAlignment>1Byte</StructMemberAlignment>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)intruder.dll</OutputFile>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)intruder.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>$(OutDir)intruder.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;INTRUDER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>../Common/;./;./common/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <StructMemberAlignment>1Byte</StructMemberAlignment>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)intruder.dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <ImportLibrary>$(OutDir)intruder.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Common\registry.cpp" />
+    <ClCompile Include="..\injector\kinject.cpp" />
+    <ClCompile Include="common\KDumper.cpp" />
+    <ClCompile Include="common\KDumper2.cpp" />
+    <ClCompile Include="common\KDumper3.cpp" />
+    <ClCompile Include="common\khook2.cpp" />
+    <ClCompile Include="common\KHookMgr.cpp" />
+    <ClCompile Include="dx11\DI11.cpp" />
+    <ClCompile Include="dx11\DII11.cpp" />
+    <ClCompile Include="dx11\DIII11.cpp" />
+    <ClCompile Include="dx11\Draw11.cpp" />
+    <ClCompile Include="dx11\DrawAuto11.cpp" />
+    <ClCompile Include="dx11\DrawInstanced11.cpp" />
+    <ClCompile Include="dx11\DrawInstancedI11.cpp" />
+    <ClCompile Include="dx11\Dump11.cpp" />
+    <ClCompile Include="dx11\KRipper11.cpp" />
+    <ClCompile Include="dx11\Pre11.cpp" />
+    <ClCompile Include="dx11\SaveMeshTextures11.cpp" />
+    <ClCompile Include="dx11\SaveTexture11.cpp" />
+    <ClCompile Include="dx11\Texture11.cpp" />
+    <ClCompile Include="dx8\DIP8.cpp" />
+    <ClCompile Include="dx8\DIPUP8.cpp" />
+    <ClCompile Include="dx8\DP8.cpp" />
+    <ClCompile Include="dx8\DPUP8.cpp" />
+    <ClCompile Include="dx8\Dump8.cpp" />
+    <ClCompile Include="dx8\Pre8.cpp" />
+    <ClCompile Include="dx8\SaveMeshTextures8.cpp" />
+    <ClCompile Include="dx8\Texture8.cpp" />
+    <ClCompile Include="dx9\DIP9.cpp" />
+    <ClCompile Include="dx9\DIPUP9.cpp" />
+    <ClCompile Include="dx9\DP9.cpp" />
+    <ClCompile Include="dx9\DPUP9.cpp" />
+    <ClCompile Include="dx9\Dump9.cpp" />
+    <ClCompile Include="dx9\Pre9.cpp" />
+    <ClCompile Include="dx9\SaveMeshTextures9.cpp" />
+    <ClCompile Include="dx9\SaveShader9.cpp" />
+    <ClCompile Include="dx9\SaveTexture9.cpp" />
+    <ClCompile Include="dx9\Texture9.cpp" />
+    <ClCompile Include="intruder.cpp" />
+    <ClCompile Include="dx9\KRipper9.cpp" />
+    <ClCompile Include="common\KIntruder.cpp" />
+    <ClCompile Include="common\klog.cpp" />
+    <ClCompile Include="common\PreComp.cpp" />
+    <ClCompile Include="dx8\KRipper8.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Common\registry.h" />
+    <ClInclude Include="..\injector\kinject.h" />
+    <ClInclude Include="common\CodeMacroses.h" />
+    <ClInclude Include="common\CodeMacroses2.h" />
+    <ClInclude Include="common\IRipper.h" />
+    <ClInclude Include="common\KDumper.h" />
+    <ClInclude Include="common\khook2.h" />
+    <ClInclude Include="common\KHookMgr.h" />
+    <ClInclude Include="common\Output.h" />
+    <ClInclude Include="common\TDXRef.h" />
+    <ClInclude Include="dx11\KRipper11.h" />
+    <ClInclude Include="dx11\Pre11.h" />
+    <ClInclude Include="dx11\Types.h" />
+    <ClInclude Include="dx8\Pre8.h" />
+    <ClInclude Include="dx8\Types.h" />
+    <ClInclude Include="dx9\Pre9.h" />
+    <ClInclude Include="dx9\Types.h" />
+    <ClInclude Include="intruder.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="dx9\KRipper9.h" />
+    <ClInclude Include="common\hde.h" />
+    <ClInclude Include="common\KIntruder.h" />
+    <ClInclude Include="common\klog.h" />
+    <ClInclude Include="common\outtypes.h" />
+    <ClInclude Include="common\PreComp.h" />
+    <ClInclude Include="dx8\KRipper8.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="intruder.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
