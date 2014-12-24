@@ -81,8 +81,6 @@ http://cgig.ru/ninjaripper/
 English Instructions (author Tosyk)
 http://cgig.ru/en/2012/10/ho-to-use-ninja-ripper/
 
-Official website of the author:
-http://blackninja2000.narod.ru/rus/directx_ripper.html
 
 The official support page:
 http://cgig.ru/forum/viewtopic.php?f=5&t=224
