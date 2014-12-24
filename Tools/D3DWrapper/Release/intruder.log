@@ -1,7 +1,0 @@
-﻿  stdafx.cpp
-  registry.cpp
-  d3d11wrap.cpp
-  intruder.cpp
-  Generating Code...
-     Creating library Release\intruder.lib and object Release\intruder.exp
-  intruder.vcxproj -> C:\Users\admin\Desktop\NinjaRipperSrc\Tools\D3DWrapper\Release\d3dwrap.dll
